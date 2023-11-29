@@ -1,0 +1,7 @@
+MYSQL_ROOT_PASSWORD: password@@
+MYSQL_DATABASE: wordpress
+MYSQL_USER: myuseradmin
+MYSQL_PASSWORD: mypassword!!
+WORDPRESS_DB_HOST: db:3306
+WORDPRESS_DB_USER: myuseradmin
+WORDPRESS_DB_PASSWORD: mypassword!!
