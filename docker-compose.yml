@@ -1,0 +1,91 @@
+version: '3.9'
+
+services:
+  wp:
+    image: wordpress:latest
+    container_name: wpapp
+    volumes:
+      - ./wp/web/:/var/www/html/
+      - ./logs/wp:/var/log/nginx/kunnoh/
+    depends_on:
+      - pgdb
+    networks:
+      - mynet
+    ports:
+      - "8083:80"
+    restart: always
+
+  pgadmin4:
+    build:
+      context: ./pgadmin
+      dockerfile: Dockerfile
+
+    container_name: pgad4
+    depends_on:
+      - pgdb
+        # - condition: service_healthy
+    volumes:
+      - ./logs/pgadmin4:/var/log/pgadmin4:rw
+    restart: always
+    ports:
+      - 8081:80
+    networks:
+      - mynet
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -h db"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  pgdb:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    container_name: postgresdb
+    volumes:
+      - ./postgres/data/:/var/lib/postgresql/data:rw
+      - ./postgres/usr:/usr/local/pgsql/data/
+      - ./logs/postgres:/var/log/postgresql/:rw
+    networks:
+      - mynet
+    ports:
+      - 5432:5432
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U username -d database_name", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  logs:
+    driver: local
+    name: logs
+
+  wp-logs:
+    driver: local
+    name: wp-logs
+
+# volumes:
+#   - name: logs
+#     hostpath:
+#       path: /var/log/
+#   - name: wp-logs
+#     hostpath:
+#       path: /var/log/
+
+networks:
+  mynet:
+    driver: bridge
