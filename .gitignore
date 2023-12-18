@@ -5,3 +5,6 @@ local.env
 logs/pgadmin/*
 logs/postgres/*
 logs/wp/*
+
+# wordpres
+wp/web/*

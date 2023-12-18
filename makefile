@@ -44,13 +44,9 @@ destroy:
 	@echo "[*] DESTROYING ALL CONTAINERS AND VOLUMES"
 	@docker-compose --env-file=$(ENV) -f docker-compose.yml down -v
 	@echo ""
-	@echo "[+] removing images"
-	@docker image rm 
-	@echo ""
 	@echo "[+] complete!"
 	@echo ""
-
-.DEFAULT_GOAL := help
+	@echo ""
 
 help:
 	@echo ""

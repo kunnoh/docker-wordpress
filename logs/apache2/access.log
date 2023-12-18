@@ -1,0 +1,1 @@
+172.31.0.1 - - [18/Dec/2023:23:19:59 +0000] "GET /wp-admin/setup-config.php?step=1&language=en_CA HTTP/1.1" 200 1878 "http://localhost:8083/wp-admin/setup-config.php?step=0" "Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0"

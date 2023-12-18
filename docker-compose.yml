@@ -5,8 +5,8 @@ services:
     image: wordpress:latest
     container_name: wpapp
     volumes:
-      - ./wp/web/:/var/www/html/
-      - ./logs/wp:/var/log/nginx/kunnoh/
+      - ./wp/web/:/var/www/html/:rw
+      - ./logs/:/var/log/:rw
     depends_on:
       - pgdb
     networks:
@@ -20,7 +20,7 @@ services:
       context: ./pgadmin
       dockerfile: Dockerfile
 
-    container_name: pgad4
+    container_name: pgadm4
     depends_on:
       - pgdb
         # - condition: service_healthy
@@ -47,11 +47,11 @@ services:
     build:
       context: ./postgres
       dockerfile: Dockerfile
-    container_name: postgresdb
+    container_name: pgresdb
     volumes:
-      - ./postgres/data/:/var/lib/postgresql/data:rw
-      - ./postgres/usr:/usr/local/pgsql/data/
-      - ./logs/postgres:/var/log/postgresql/:rw
+      - ./postgres/:/usr/local/psql/:rw
+      - ./postgres/:/usr/local/pgsql/:rw
+      - ./logs/:/var/log/:rw
     networks:
       - mynet
     ports:
@@ -73,18 +73,6 @@ volumes:
   logs:
     driver: local
     name: logs
-
-  wp-logs:
-    driver: local
-    name: wp-logs
-
-# volumes:
-#   - name: logs
-#     hostpath:
-#       path: /var/log/
-#   - name: wp-logs
-#     hostpath:
-#       path: /var/log/
 
 networks:
   mynet:
