@@ -19,7 +19,6 @@ services:
     build:
       context: ./pgadmin
       dockerfile: Dockerfile
-
     container_name: pgadm4
     depends_on:
       - pgdb

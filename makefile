@@ -44,6 +44,7 @@ destroy:
 	@echo "[*] DESTROYING ALL CONTAINERS AND VOLUMES"
 	@docker-compose --env-file=$(ENV) -f docker-compose.yml down -v
 	@echo ""
+	@docker rmi pgdb pgadmin4 wordpress
 	@echo "[+] complete!"
 	@echo ""
 	@echo ""

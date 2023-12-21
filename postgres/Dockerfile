@@ -4,8 +4,8 @@ ENV POSTGRES_USER=$USER
 ENV POSTGRES_PASSWORD=$PASSWORD
 ENV POSTGRES_DB=$DATABASE
 
-COPY postgresql.conf /etc/postgresql/postgresql.conf
-COPY pg_hba.conf /etc/postgresql/pg_hba.conf
+COPY config/postgresql.conf /etc/postgresql/postgresql.conf
+COPY config/pg_hba.conf /etc/postgresql/pg_hba.conf
 
 RUN chown postgres:postgres /etc/postgresql/postgresql.conf
 RUN chown postgres:postgres /etc/postgresql/pg_hba.conf
