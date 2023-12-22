@@ -1,4 +1,4 @@
-ENV=local.env
+ENV=./local.env
 
 .DEFAULT_GOAL := help
 
@@ -18,8 +18,8 @@ start:
 	@echo "[*] STARTING: building containers..."
 	@echo ""
 	@docker-compose --env-file=$(ENV) -f docker-compose.yml up -d
-	@echo ""
 	@echo "[*] Containers started"
+	@echo ""
 	@echo ""
 
 
@@ -44,14 +44,17 @@ destroy:
 	@echo "[*] DESTROYING ALL CONTAINERS AND VOLUMES"
 	@docker-compose --env-file=$(ENV) -f docker-compose.yml down -v
 	@echo ""
-	@docker rmi pgdb pgadmin4 wordpress
+	@docker rmi docker-wordpress-pgdb:latest docker-wordpress-pgadmin4:latest docker-wordpress-pgdb:latest
 	@echo "[+] complete!"
 	@echo ""
 	@echo ""
 
 help:
 	@echo ""
-	@echo "[*] Usage: make [ start | stop | restart | rebuild | destroy ]"
+	@echo "[*] USAGE .."
 	@echo ""
-	@echo "[+] example: make start"
+	@echo "    make [ options ]"
+	@echo "        - [ start | stop | restart | rebuild | destroy ]"
+	@echo "    example:"
+	@echo "        make start - start system using docker-compose.yml"
 	@echo ""

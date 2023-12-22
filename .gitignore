@@ -8,3 +8,7 @@ logs/wp/*
 
 # wordpres
 wp/web/*
+
+# postgres
+postgres/postgres.env
+postgres/usr
